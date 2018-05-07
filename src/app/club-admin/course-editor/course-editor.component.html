@@ -1,0 +1,78 @@
+<div class="container-fluid">
+    <div class="row mt-2">
+      <div class="col-3 p-2">
+        <div class="p-2 border rounded my-col">
+          <div class="container">
+              <button class="btn btn-success btn-block mb-2 " (click)="create()">Nouveau parcours</button>
+            <div *ngFor="let course of courses">
+              <h4>
+                <span class="btn btn-primary btn-block" (click)="selectCourse(course.courseId)">{{course.name}}</span>
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4 p-2">
+        <div class="p-2 border rounded my-col">
+            <div *ngIf="selectedCourse">
+                <div class="form-group">
+                  <label>Identification:</label>
+                  <input [(ngModel)]="selectedCourse.name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Type:</label>
+                    <select [(ngModel)]="selectedCourse.holeNumber" class="form-control" (change)="onSizeChange($event)">
+                      <option value="9">9 trous</option>
+                      <option value="18">18 trous</option>
+                    </select>
+                  </div>
+                <div class="form-group">
+                    <label>Slopes:</label>
+                    <input [(ngModel)]="selectedCourse.slope_MB" class="form-control" placeholder="Hommes Blancs" type="number">
+                    <input [(ngModel)]="selectedCourse.slope_MY" class="form-control" placeholder="Hommes Jaunes" type="number">
+                    <input [(ngModel)]="selectedCourse.slope_MBl" class="form-control" placeholder="Hommes Bleus" type="number">
+                    <input [(ngModel)]="selectedCourse.slope_MR" class="form-control" placeholder="Hommes Rouges" type="number">
+                    <input [(ngModel)]="selectedCourse.slope_FY" class="form-control" placeholder="Femme Jaunes" type="number">
+                    <input [(ngModel)]="selectedCourse.slope_FBl" class="form-control" placeholder="Femme Bleus" type="number">
+                    <input [(ngModel)]="selectedCourse.slope_FR" class="form-control" placeholder="Femme Rouges" type="number">
+                  </div>
+                  <div class="form-group">
+                      <label>Scratchs:</label>
+                      <input [(ngModel)]="selectedCourse.sss_MB" class="form-control" placeholder="Hommes Blancs" type="number">
+                    <input [(ngModel)]="selectedCourse.sss_MY" class="form-control" placeholder="Hommes Jaunes" type="number">
+                    <input [(ngModel)]="selectedCourse.sss_MBl" class="form-control" placeholder="Hommes Bleus" type="number">
+                    <input [(ngModel)]="selectedCourse.sss_MR" class="form-control" placeholder="Hommes Rouges" type="number">
+                    <input [(ngModel)]="selectedCourse.sss_FY" class="form-control" placeholder="Femme Jaunes" type="number">
+                    <input [(ngModel)]="selectedCourse.sss_FBl" class="form-control" placeholder="Femme Bleus" type="number">
+                    <input [(ngModel)]="selectedCourse.sss_FR" class="form-control" placeholder="Femme Rouges" type="number">
+                    </div>
+
+                <button class="btn btn-success btn-block  " (click)="save()">Enregistrer parcours</button>
+                <button class="btn btn-danger btn-block  " (click)="delete()">Eliminer</button>
+              </div>
+        </div>
+      </div>
+      <div class="col-5 p-2">
+        <div class="p-2 border rounded my-col">
+            <div *ngIf="selectedCourse">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Num.</th><th>Trou</th><th>Handicap</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let hole of selectedCourse.holes ; index as i;">
+                <td>{{selectedCourse.holes[i].num}}</td>
+                <td><select [(ngModel)]="selectedCourse.holes[i].holeId" class="form-control">
+                  <option *ngFor="let hol of holes" [value]="hol.holeId">{{hol.name}}</option>
+                </select></td>
+                <td><input [(ngModel)]="selectedCourse.holes[i].handicap" class="form-control"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>

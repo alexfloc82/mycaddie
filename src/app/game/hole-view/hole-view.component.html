@@ -1,0 +1,39 @@
+<div *ngIf="loaded">
+  <div class="container text-center p-4">
+    <h2>Trou {{hole.num}}</h2>
+  </div>
+  <div class="row text-center">
+    <div class="col-6 border p-2">
+      <h4>Par</h4>
+      <div>
+        <span class="badge badge-secondary">{{hole.detail.par}}</span>
+      </div>
+    </div>
+    <div class="col-6 border p-2">
+      <h4>Handicap</h4>
+      <div>
+        <span class="badge badge-secondary">{{hole.handicap}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="container p-3 text-center">
+    
+    <h4 class=mb-3>{{selectedParticipant.fullname}}</h4>
+    <button class="btn btn-block mb-2" [class.btn-success]="selectedScore==hole.detail.par-2" (click)="this.selectedScore = hole.detail.par-2; save();">Eagle</button>
+    <button class="btn btn-block mb-2" [class.btn-success]="selectedScore==hole.detail.par-1" (click)="this.selectedScore = hole.detail.par-1; save();">Birdie</button>
+    <button class="btn btn-block mb-2" [class.btn-success]="selectedScore==hole.detail.par"   (click)="this.selectedScore = hole.detail.par; save();">Par</button>
+    <button class="btn btn-block mb-2" [class.btn-success]="selectedScore==hole.detail.par+1" (click)="this.selectedScore = hole.detail.par + 1; save();">Bogey</button>
+    <button class="btn btn-block mb-2" [class.btn-success]="selectedScore==hole.detail.par+2" (click)="this.selectedScore = hole.detail.par + 2; save();">Double Bogey</button>
+    <select class="form-control mb-2" [(ngModel)]="selectedScore" (change)="save()">
+      <option value="6" *ngIf="hole.detail.par < 4">6</option>
+      <option value="7" *ngIf="hole.detail.par < 5">7</option>
+      <option value="8" *ngIf="hole.detail.par < 6">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+    </select>
+    <button class="btn float-left text-light" style="background-color: teal" (click)="back()">Retour</button>
+  </div>
+  
+</div>

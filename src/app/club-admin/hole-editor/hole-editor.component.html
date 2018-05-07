@@ -1,0 +1,65 @@
+<div class="container-fluid">
+  <div class="row mt-2">
+    <div class="col-2 p-2">
+      <div class="p-2 border rounded my-col">
+        <div class="container">
+            <button class="btn btn-success btn-block mb-2 " (click)="create()">Nouveau trou</button>
+          <div *ngFor="let hole of holes">
+            <h4>
+              <span class="btn btn-primary btn-block  " (click)="selectHole(hole.holeId)">{{hole.name}}</span>
+            </h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4 p-2">
+      <div class="p-2 border rounded my-col">
+        <div *ngIf="selectedHole">
+          <div class="form-group">
+            <label>Identification:</label>
+            <input [(ngModel)]="selectedHole.name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Numéro:</label>
+            <input [(ngModel)]="selectedHole.num" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Par:</label>
+            <input [(ngModel)]="selectedHole.par" class="form-control" type="number">
+          </div>
+          <button class="btn btn-success btn-block  " (click)="save()">Enregistrer trou</button>
+          <button class="btn btn-danger btn-block" (click)="delete()">Eliminer</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 p-2">
+      <div class="p-2 border rounded my-col">
+          <div class="form-group">
+              <select [(ngModel)]="markerType" class="form-control">
+                <option value="gnear">Entrée du green</option>
+                <option value="gfar">Sortie du green</option>
+                <option value="gmid">Milieu du green</option>
+                <option value="hole">Trou</option>
+                <option value="B1">Bunker 1</option>
+                <option value="B2">Bunker 2</option>
+                <option value="B3">Bunker 3</option>
+                <option value="B4">Bunker 4</option>
+                <option value="B5">Bunker 5</option>
+                <option value="B6">Bunker 6</option>
+                <option value="B7">Bunker 7</option>
+                <option value="B8">Bunker 8</option>
+                <option value="H1">Danger 1</option>
+                <option value="H2">Danger 2</option>
+                <option value="H3">Danger 3</option>
+                <option value="H4">Danger 4</option>
+                <option value="H5">Danger 5</option>
+                <option value="H6">Danger 6</option>
+                <option value="H7">Danger 7</option>
+                <option value="H8">Danger 8</option>
+              </select>
+            </div>
+        <div id="mapHole"></div>
+      </div>
+    </div>
+  </div>
+</div>

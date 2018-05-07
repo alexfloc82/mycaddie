@@ -1,0 +1,101 @@
+<div class="container-fluid mt-3" style="color: teal" *ngIf="loaded">
+  <div class="mx-auto mt-2">
+    <h2>Résultats
+      <button class="btn float-right text-light" style="background-color: teal" *ngIf="game.isOpen" (click)="end(false)">Terminer partie</button>
+      <button class="btn float-right text-light btn-secondary" *ngIf="!game.isOpen" (click)="end(true)">Reprise partie</button>
+    </h2>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          Trou
+        </th>
+        <th>
+          Par
+        </th>
+        <th>
+          Hdp
+        </th>
+        <th>
+          Score
+        </th>
+        <th>
+          Brut
+        </th>
+        <th>
+          Net
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let hole of game.courseComplete.holes; let i = index">
+        <tr class="text-center table-secondary" *ngIf="i==9">
+          <td>Aller</td>
+          <td>
+            <span class="badge badge-pill badge-info">{{parTotali}}</span>
+          </td>
+          <td></td>
+          <td>
+            <span class="badge badge-pill badge-info" *ngIf="totali[game.participants[0].uid]">{{totali[game.participants[0].uid]}}</span>
+          </td>
+          <td>
+            <span class="badge badge-pill badge-info" *ngIf="totaliBrut[game.participants[0].uid]">{{totaliBrut[game.participants[0].uid]}}</span>
+          </td>
+          <td>
+            <span class="badge badge-pill badge-info" *ngIf="totaliNet[game.participants[0].uid]">{{totaliNet[game.participants[0].uid]}}</span>
+          </td>
+        </tr>
+        <tr class="text-center" (click)="holeDetail(i)">
+          <td class="font-weight-bold">{{hole.num}}</td>
+          <td>
+            <span class="badge badge-pill" [class.badge-dark]="hole.detail.par==4" [class.badge-success]="hole.detail.par==3" [class.badge-danger]="hole.detail.par==5">{{hole.detail.par}}</span>
+          </td>
+          <td>{{hole.handicap}}</td>
+          <td>
+            <span *ngIf="game.scores[hole.detail.holeId]">{{game.scores[hole.detail.holeId][game.participants[0].uid]}}</span>
+          </td>
+          <td>
+            <span *ngIf="game.scores[hole.detail.holeId]">{{calculateGrossPoints(hole.detail.par, game.scores[hole.detail.holeId][game.participants[0].uid])}}</span>
+          </td>
+          <td>
+            <span *ngIf="game.scores[hole.detail.holeId]">{{calculateNetPoints(hole.handicap, game.participants[0].handicap, game.participants[0].tees, game.participants[0].gender, hole.detail.par, game.scores[hole.detail.holeId][game.participants[0].uid])}}</span>
+          </td>
+        </tr>
+        <tr class="text-center table-secondary" *ngIf="i==17">
+          <td>Retour</td>
+          <td>
+            <span class="badge badge-pill badge-info">{{parTotalo}}</span>
+          </td>
+          <td></td>
+          <td>
+            <span class="badge badge-pill badge-info" *ngIf="totalo[game.participants[0].uid]">{{totalo[game.participants[0].uid]}}</span>
+          </td>
+          <td>
+            <span class="badge badge-pill badge-info" *ngIf="totaloBrut[game.participants[0].uid]">{{totaloBrut[game.participants[0].uid]}}</span>
+          </td>
+          <td>
+            <span class="badge badge-pill badge-info" *ngIf="totaloNet[game.participants[0].uid]">{{totaloNet[game.participants[0].uid]}}</span>
+          </td>
+        </tr>
+      </ng-container>
+      <tr class="text-center table-success">
+        <td>Total</td>
+        <td>
+          <span class="badge badge-pill badge-success">{{parTotal}}</span>
+        </td>
+        <td></td>
+        <td>
+          <span class="badge badge-pill badge-success" *ngIf="total[game.participants[0].uid]">{{total[game.participants[0].uid]}}</span>
+        </td>
+        <td>
+          <span class="badge badge-pill badge-success" *ngIf="totalBrut[game.participants[0].uid]">{{totalBrut[game.participants[0].uid]}}</span>
+        </td>
+        <td>
+          <span class="badge badge-pill badge-success" *ngIf="totalNet[game.participants[0].uid]">{{totalNet[game.participants[0].uid]}}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn float-left text-light" style="background-color: teal" (click)="back()">Retour</button>
+</div>

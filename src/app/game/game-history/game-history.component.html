@@ -1,0 +1,66 @@
+<div>
+  <div [@slide]='menu' class="fixed-top h-100 bg-light">
+    <app-header></app-header>
+    <div class="container mt-3" style="height:80%; overflow-y: scroll">
+      <button class="btn btn-outline-light btn-lg btn-block" style="background-color: teal" (click)="course='current'; menu='done'">Nouvelle partie</button>
+      <div *ngFor="let game of userGames">
+        <div class="mt-2">
+          <app-game-card [gameId]="game.payload.doc.id"></app-game-card>
+        </div>
+      </div>
+    </div>
+    <div class="fixed-bottom">
+      <app-footer></app-footer>
+    </div>
+  </div>
+  <div [@slide]='course' class="fixed-top h-100" style="background-color: teal;z-index:-100">
+    <div class="container p-3 mt-5">
+      <label class="text-light">Club</label>
+      <div class="form-group">
+        <select class="form-control" [(ngModel)]="newGame.club" (change)="onClubSelect()">
+          <option value="-">-</option>
+          <option *ngFor="let club of clubs" [value]="club.clubId">{{club.name}}</option>
+        </select>
+      </div>
+      <label class="text-light">Parcours</label>
+      <div class="form-group">
+        <select class="form-control" [(ngModel)]="newGame.course" (change)="onCourseSelect()">
+            <option *ngFor="let course of courses" [value]="course.courseId">{{course.name}}</option>
+        </select>
+      </div>
+      <label class="text-light">Formule de jeu</label>
+      <div class="form-group">
+        <select class="form-control" [(ngModel)]="newGame.formula">
+          <option value="A">Stroke play</option>
+          <option value="B">Match play</option>
+        </select>
+      </div>
+      <button class="btn btn-outline-light float-left" (click)="menu = 'current'; course = 'next'; ">
+        <span class="far fa-arrow-alt-circle-left"></span> Précédent</button>
+      <button class="btn btn-light float-right" (click)="teams = 'current'; course = 'done'; ">Suivant
+        <span class="far fa-arrow-alt-circle-right"></span>
+      </button>
+    </div>
+  </div>
+  <div [@slide]='teams' class="fixed-top h-100" style="background-color: teal;z-index:-100; overflow-y: scroll  ">
+    <div class="container p-3 mt-5" *ngIf="currentUserInfo">
+      <div *ngFor="let player of newGame.participants">
+        <div class="p-2 mb-2 card">
+          <div class="row">
+            <div class="col-2">
+              <img class="rounded-circle" [src]="currentUserInfo.picture" alt="../../../../assets/profile.jpg" class="mx-auto" style="height: 40px; display: block">
+            </div>
+            <div class="col-10 p2">
+              <h4 style="color: teal">{{currentUserInfo.fullname}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-outline-light float-left" (click)="course = 'current'; teams = 'next'; ">
+        <span class="far fa-arrow-alt-circle-left"></span> Précédent</button>
+      <button class="btn btn-light float-right" (click)="save()">Créer partie
+        <span class="far fa-arrow-alt-circle-right"></span>
+      </button>
+    </div>
+  </div>
+</div>

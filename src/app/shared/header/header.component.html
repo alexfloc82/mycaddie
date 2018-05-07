@@ -1,0 +1,4 @@
+<nav class="navbar navbar-light" style="background-color: teal;">
+  <span class="navbar-text text-light">{{(auth.userProfile | async)?.name}} {{(auth.userProfile | async)?.lastname}}</span>
+  <button class="btn btn-outline-light btn-sm" (click)="logout()">Déconnexion</button>
+</nav>
