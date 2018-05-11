@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 
 declare var google: any;
 var map;
+var elevator;
 
 import { Game, Hole, Course, Club, Facility } from '../../shared/datamodel';
 import { ClubService } from '../club.service';
@@ -44,10 +45,11 @@ export class HoleEditorComponent implements OnInit {
       zoom: 18,
       mapTypeId: 'hybrid'
     });
+    elevator = new google.maps.ElevationService;
     map.addListener('dblclick', (e) => {
-      console.log(e);
       this.addMarker(e.latLng);
     });
+    
   }
 
   selectHole(holeId: string) {
@@ -103,6 +105,8 @@ export class HoleEditorComponent implements OnInit {
         break;
       case 'gmid':
         label = 'G-M';
+        elevator.getElevationForLocations({'locations': [LatLng]}, (results, status) => this.selectedHole['elevation'] = results[0].elevation);
+        
         break;
       case 'hole':
         label = 'T';
