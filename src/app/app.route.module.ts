@@ -9,7 +9,7 @@ export const routes: Routes = [
   { path: 'home',   component: HomeComponent, canActivate: [AuthService]  },  
   { path: 'game',  loadChildren: 'app/game/game.module#GameModule', canActivate: [AuthService] }, 
   { path: 'stat',  loadChildren: 'app/stat/stat.module#StatModule', canActivate: [AuthService]},
-  { path: 'user',  loadChildren: 'app/user/user.module#UserModule', canActivate: [AuthService]},
+  { path: 'user',  loadChildren: 'app/user/user.module#UserModule'},
   { path: 'clubadmin',  loadChildren: 'app/club-admin/club-admin.module#ClubAdminModule'},
   
 ];

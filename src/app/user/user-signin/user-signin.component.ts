@@ -27,7 +27,7 @@ export class UserSigninComponent implements OnInit {
 
   constructor(
     private auth:AuthService,
-    private router: Router
+    public router: Router
   ) { 
     this.form = new User;
     this.username = '';
