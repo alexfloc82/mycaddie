@@ -41,6 +41,7 @@ export class GameHistoryComponent implements OnInit {
     private router: Router
   ) { 
     this.newGame = new Game;
+    this.newGame.formula ="A";
     this.afs.collection<Facility>('clubs').valueChanges().subscribe(clubs => this.clubs=clubs);
     auth.user.subscribe(user => {
       this.newGame.participants.push(user.uid);
