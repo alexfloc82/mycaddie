@@ -64,6 +64,7 @@ export class Club {
 
 export class Friend {
 	uid: string;
+	isAccepted: boolean;
 
 	constructor() { }
 }

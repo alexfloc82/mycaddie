@@ -138,6 +138,7 @@ export class HoleEditorComponent implements OnInit {
   create(){
     this.cs.createHole(this.club).then(hole => {
       this.selectedHole = hole;
+      this.clearMarkers();
       this.cs.getHoleList(this.club).then(holes => this.holes = holes);
     } );
   }
@@ -145,8 +146,13 @@ export class HoleEditorComponent implements OnInit {
   delete(){
     this.cs.deleteHole(this.club, this.selectedHole).then(result => {
       this.selectedHole = null;
+      this.clearMarkers();
       this.cs.getHoleList(this.club).then(holes => this.holes = holes);
     });
+  }
+
+  clearMarkers(){
+    this.markers.forEach(mark => mark.setMap(null));
   }
 
 }

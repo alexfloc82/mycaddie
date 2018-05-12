@@ -1,5 +1,8 @@
-<div>
-  <div [@slide]='menu' class="fixed-top h-100 bg-light" >
+<div class="container text-center pt-5" *ngIf="loader">
+  <i class="fa fa-spinner fa-4x fa-spin fa-fw" aria-hidden="true"></i>
+</div>
+<div class="container-fluid p-3" *ngIf="!loader">
+  <div [@slide]='menu' class="fixed-top h-100 bg-light">
     <app-header></app-header>
     <div class="container mt-5" style="height:70%; overflow-y: scroll">
       <div class="my-3">
@@ -91,7 +94,7 @@
             <input type="text" [(ngModel)]="club.dist_from" class="form-control" [disabled]="!club.isCarried">
           </div>-->
           <div class="col-6">
-            <input type="text" [(ngModel)]="club.dist_to" class="form-control" [disabled]="!club.isCarried">
+            <input type="number" [(ngModel)]="club.dist_to" class="form-control" [disabled]="!club.isCarried">
           </div>
           <div class="col-2">
             <div class="form-group form-inline">
@@ -106,8 +109,57 @@
   </div>
   <div [@slide]='community' class="fixed-top h-100" style="background-color: teal;z-index:-100">
     <div class="container p-2 text-light">
+      
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text mb-2">
+            <span class="fas fa-search"></span>
+          </span>
+        </div>
+        <input type="search" class="form-control mb-2" (change)="onFilter($event)">
+      </div>
+      <div *ngFor="let contact of displayContacts">
+        <div class="p-2 mb-2 card">
+          <div class="row">
+            <div class="col-2">
+              <img class="rounded-circle" [src]="contact.picture" alt="../../../../assets/profile.jpg" class="mx-auto" style="height: 40px; display: block">
+            </div>
+            <div class="col-10 p2">
+              <h4 style="color: teal">{{contact.fullname}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-light btn-lg btn-block mb-3" (click)="newFriend()">Nouveau contact</button>
       <button class="btn btn-outline-light btn-lg btn-block mb-3" (click)="save()">
         Valider
+      </button>
+    </div>
+  </div>
+  <div [@slide]='friendSearch' class="fixed-top h-100" style="background-color: teal;z-index:-100">
+    <div class="container p-2 text-light">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text mb-2">
+            <span class="fas fa-search"></span>
+          </span>
+        </div>
+        <input type="search" class="form-control mb-2" (change)="onSearch($event)">
+      </div>
+      <div *ngFor="let contact of searchedContacts">
+        <div class="p-2 mb-2 card" (click)="addFriend(contact.uid)">
+          <div class="row">
+            <div class="col-2">
+              <img class="rounded-circle" [src]="contact.picture" alt="../../../../assets/profile.jpg" class="mx-auto" style="height: 40px; display: block">
+            </div>
+            <div class="col-10 p2">
+              <h4 style="color: teal">{{contact.fullname}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-outline-light btn-lg btn-block mb-3" (click)="back()">
+        Retour
       </button>
     </div>
   </div>

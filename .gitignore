@@ -18,6 +18,14 @@
 .settings/
 *.sublime-workspace
 
+#cordova
+/cordova/www
+/cordova/node_modules
+/cordova/plugins
+/cordova/res
+/cordova/hooks
+/cordova/platforms
+
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json

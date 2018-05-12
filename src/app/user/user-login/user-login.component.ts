@@ -36,14 +36,14 @@ export class UserLoginComponent implements OnInit {
     this.auth.login(this.email, this.password)
     .then(a => {
       this.email = this.password = '';
-      this.router.navigate(['home']);
+      this.router.navigate(['game']);
     })
     
   }
 
   loginWithGoogle(){
     this.auth.loginWithGoogle().then(a => {
-      this.router.navigate(['home']);
+      this.router.navigate(['game']);
     });
 
   }
